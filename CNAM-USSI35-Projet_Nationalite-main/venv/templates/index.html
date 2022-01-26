@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Reconnaissance d'image</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">Indiquez le chemin de l'image que vous voulez traiter !</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Résultat</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created }}</td>
+                <td>
+                    <a href="/delete/{{task.id}}">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Traiter l'image">
+        </form>
+    </div>
+</div>
+{% endblock %}
